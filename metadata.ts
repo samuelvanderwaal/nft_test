@@ -26,7 +26,11 @@ class Metadata {
     public key: string;
     public updateAuthority: PublicKey;
     public mint: PublicKey;
-    public data: Data;
+    public name: string;
+    public symbol: string;
+    public uri: string;
+    public sellerFeeBasisPoints: number;
+    // array of creators?
     public primarySaleHappened: boolean;
     public isMutable: boolean;
 
@@ -45,25 +49,14 @@ class Metadata {
                     ['uri', [200]],
                     ['sellerFeeBasisPoints', 'u16'],
                     ['address', [32]],
-                    ['verified', 'u8', boolMapper]
+                    ['verified', 'u8', boolMapper],
+                    ['share'],
+                    ['primarySaleHappened', 'u8', boolMapper],
+                    ['isMutable', 'u8', boolMapper]
                 ]
             }
         ]
     ]);
 
     constructor(params: { key: string });
-}
-
-class Data {
-    public name: string;
-    public symbol: string;
-    public uri: string;
-    public sellerFeeBasisPoints: number;
-    public creators: Creator[] | null;
-}
-
-class Creator {
-    public address: PublicKey;
-    public verified: boolean;
-    public share: number;
 }
